@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Warung Nutrisi",
+    "slug": "warung-nutrisi",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "scheme": "warung-nutrisi",
+    "splash": {
+      "backgroundColor": "#f0fdf4"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.warungnutrisi.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#f0fdf4"
+      },
+      "package": "com.warungnutrisi.app"
+    },
+    "plugins": [
+      "expo-router"
+    ]
+  }
+}
