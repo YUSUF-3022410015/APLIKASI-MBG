@@ -4,7 +4,7 @@
     "slug": "warung-nutrisi",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./public/logo.svg",
     "userInterfaceStyle": "light",
     "scheme": "warung-nutrisi",
     "splash": {
@@ -21,7 +21,8 @@
       "package": "com.warungnutrisi.app"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "nativewind"
     ]
   }
 }

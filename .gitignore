@@ -40,3 +40,6 @@ next-env.d.ts
 
 # Prisma
 prisma/migrations/
+
+# Windows
+nul
