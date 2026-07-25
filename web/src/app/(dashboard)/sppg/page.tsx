@@ -16,30 +16,41 @@ export default async function SppgDashboard() {
     },
   });
 
+  if (!sppg) {
+    return (
+      <div>
+        <h1 className="text-2xl font-bold mb-6">Dashboard SPPG</h1>
+        <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center">
+          <p className="text-gray-500">Akun Anda belum terhubung ke unit SPPG.</p>
+        </div>
+      </div>
+    );
+  }
+
   const todayStart = new Date(new Date().setHours(0, 0, 0, 0));
 
   const todayMenus = await prisma.menu.count({
     where: {
-      sppgId: sppg?.id,
+      sppgId: sppg.id,
       dateServed: { gte: todayStart },
     },
   });
 
   const todayReviews = await prisma.review.count({
     where: {
-      menu: { sppgId: sppg?.id },
+      menu: { sppgId: sppg.id },
       createdAt: { gte: todayStart },
     },
   });
 
   const totalPortionResult = await prisma.distribution.aggregate({
-    where: { menu: { sppgId: sppg?.id } },
+    where: { menu: { sppgId: sppg.id } },
     _sum: { totalPortion: true },
   });
 
   const distributedPortionResult = await prisma.distribution.aggregate({
     where: {
-      menu: { sppgId: sppg?.id },
+      menu: { sppgId: sppg.id },
       status: { in: ["DITERIMA", "SELESAI"] },
     },
     _sum: { totalPortion: true },

@@ -15,7 +15,7 @@ export default async function SppgMenuPage() {
   });
 
   const menus = await prisma.menu.findMany({
-    where: { sppgId: sppg?.id },
+    where: { sppgId: sppg?.id ?? "" },
     include: {
       _count: { select: { reviews: true, distributions: true } },
     },

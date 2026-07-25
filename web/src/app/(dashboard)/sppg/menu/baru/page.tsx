@@ -14,7 +14,7 @@ export default async function NewMenuPage() {
   });
 
   const schools = await prisma.school.findMany({
-    where: { isActive: true, sppgMitraId: sppg?.id },
+    where: { isActive: true, sppgMitraId: sppg?.id ?? "" },
     orderBy: { name: "asc" },
     select: { id: true, name: true },
   });
