@@ -26,7 +26,7 @@ export default async function SekolahDashboard() {
   }
 
   const distributions = await prisma.distribution.findMany({
-    where: { schoolId: user.schoolId },
+    where: { schoolId: user.schoolId! },
     include: {
       menu: {
         include: {
