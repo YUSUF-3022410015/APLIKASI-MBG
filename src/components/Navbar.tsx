@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
-import { Menu, X, Leaf, LayoutDashboard, LogOut } from "lucide-react";
+import { Menu, X, LayoutDashboard, LogOut } from "lucide-react";
+import Image from "next/image";
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -13,7 +14,7 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 glass border-b border-gray-200/50">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5 font-heading font-bold text-lg text-primary-700">
-          <Leaf className="w-6 h-6" />
+          <Image src="/logo.svg" alt="Warung Nutrisi" width={32} height={32} className="w-8 h-8" />
           Warung Nutrisi
         </Link>
 

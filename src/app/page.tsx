@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { UtensilsCrossed, Building2, ScrollText, ShieldCheck, ArrowRight, Sparkles, Leaf } from "lucide-react";
+import Image from "next/image";
+import { UtensilsCrossed, Building2, ScrollText, ShieldCheck, ArrowRight, Sparkles } from "lucide-react";
 
 const roles = [
   { icon: UtensilsCrossed, label: "Orang Tua / Murid", desc: "Lihat menu & beri ulasan", href: "/menu" },
@@ -22,7 +23,7 @@ export default function LandingPage() {
       <nav className="fixed top-0 inset-x-0 z-50 glass border-b border-gray-200/50">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 font-heading font-bold text-xl text-primary-700">
-            <Leaf className="w-6 h-6" />
+            <Image src="/logo.svg" alt="Warung Nutrisi" width={32} height={32} className="w-8 h-8" />
             Warung Nutrisi
           </Link>
           <div className="flex items-center gap-3">
@@ -131,7 +132,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2 text-white font-heading font-semibold">
-              <Leaf className="w-5 h-5 text-primary-400" />
+              <Image src="/logo.svg" alt="Warung Nutrisi" width={24} height={24} className="w-6 h-6 brightness-150" />
               Warung Nutrisi
             </div>
             <p className="text-sm">

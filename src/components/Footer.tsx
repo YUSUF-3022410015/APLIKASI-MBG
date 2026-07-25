@@ -1,4 +1,4 @@
-import { Leaf } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5 text-white font-heading font-semibold">
-            <Leaf className="w-5 h-5 text-primary-400" />
+            <Image src="/logo.svg" alt="Warung Nutrisi" width={24} height={24} className="w-6 h-6 brightness-150" />
             Warung Nutrisi
           </div>
           <p className="text-sm">
