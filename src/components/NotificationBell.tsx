@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { Bell, X } from "lucide-react";
 
 interface Notification {
   id: string;
@@ -12,7 +12,6 @@ interface Notification {
 }
 
 export default function NotificationBell() {
-  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [unread, setUnread] = useState(0);
@@ -42,47 +41,39 @@ export default function NotificationBell() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id }),
     });
-    setNotifications((prev) =>
-      prev.map((n) => (n.id === id ? { ...n, isRead: true } : n))
-    );
+    setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, isRead: true } : n)));
     setUnread((prev) => Math.max(0, prev - 1));
   }
 
   return (
     <div ref={ref} className="relative">
-      <button onClick={() => setOpen(!open)} className="relative p-2 text-gray-600 hover:text-green-600 transition" aria-label="Notifikasi">
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-        </svg>
+      <button onClick={() => setOpen(!open)} className="relative p-2.5 text-gray-500 hover:text-primary-600 hover:bg-gray-100 rounded-xl transition-all" aria-label="Notifikasi">
+        <Bell className="w-5 h-5" />
         {unread > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+          <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
             {unread > 9 ? "9+" : unread}
           </span>
         )}
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden z-50">
-          <div className="p-3 border-b border-gray-100">
-            <h3 className="font-semibold text-sm">Notifikasi</h3>
+        <div className="absolute right-0 mt-3 w-80 bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden z-50 animate-scale-in origin-top-right">
+          <div className="p-4 border-b border-gray-100 flex items-center justify-between">
+            <h3 className="font-heading font-semibold text-sm">Notifikasi</h3>
+            {unread > 0 && <span className="px-2 py-0.5 bg-primary-100 text-primary-700 text-[10px] font-medium rounded-full">{unread} baru</span>}
           </div>
+
           {notifications.length === 0 ? (
-            <div className="p-6 text-center text-sm text-gray-400">Belum ada notifikasi</div>
+            <div className="p-8 text-center text-sm text-gray-400">Belum ada notifikasi</div>
           ) : (
             <div className="max-h-80 overflow-y-auto">
               {notifications.map((n) => (
-                <button
-                  key={n.id}
-                  onClick={() => markRead(n.id)}
-                  className={`w-full text-left p-3 border-b border-gray-50 hover:bg-gray-50 transition ${
-                    !n.isRead ? "bg-green-50" : ""
-                  }`}
+                <button key={n.id} onClick={() => markRead(n.id)}
+                  className={`w-full text-left p-4 border-b border-gray-50 hover:bg-gray-50 transition-all ${!n.isRead ? "bg-primary-50/50" : ""}`}
                 >
                   <p className="text-sm font-medium">{n.title}</p>
-                  {n.body && <p className="text-xs text-gray-500 mt-0.5">{n.body}</p>}
-                  <p className="text-[10px] text-gray-400 mt-1">
-                    {new Date(n.createdAt).toLocaleDateString("id-ID")}
-                  </p>
+                  {n.body && <p className="text-xs text-gray-500 mt-1">{n.body}</p>}
+                  <p className="text-[10px] text-gray-400 mt-2">{new Date(n.createdAt).toLocaleDateString("id-ID")}</p>
                 </button>
               ))}
             </div>
