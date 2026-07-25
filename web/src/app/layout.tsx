@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Warung Nutrisi - Makan Bergizi Gratis",
   description: "Platform terintegrasi program Makan Bergizi Gratis (MBG) untuk Indonesia",
-  icons: { icon: "/favicon.svg" },
+  icons: { icon: "/favicon.svg", apple: "/favicon.svg" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
