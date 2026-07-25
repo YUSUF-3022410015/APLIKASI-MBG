@@ -10,6 +10,9 @@ dist/
 .expo/
 web-build/
 
+# Old monorepo structure (moved to root)
+web/
+
 # Environment
 .env
 .env.local
