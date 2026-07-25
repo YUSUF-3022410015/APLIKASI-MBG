@@ -1,30 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" fill="none">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="gp" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#22c55e"/>
-      <stop offset="100%" stop-color="#16a34a"/>
+      <stop offset="100%" stop-color="#15803d"/>
+    </linearGradient>
+    <linearGradient id="gl" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#16a34a"/>
+      <stop offset="100%" stop-color="#14532d"/>
     </linearGradient>
   </defs>
-  <!-- Plate -->
-  <ellipse cx="100" cy="105" rx="55" ry="18" fill="#f0fdf4" stroke="#16a34a" stroke-width="3"/>
-  <ellipse cx="100" cy="100" rx="50" ry="50" fill="#f0fdf4" stroke="#16a34a" stroke-width="3"/>
-  <ellipse cx="100" cy="100" rx="38" ry="38" fill="none" stroke="#bbf7d0" stroke-width="1.5"/>
-  <!-- Fork (left) -->
-  <g transform="translate(100,100) rotate(-25) translate(-100,-100)">
-    <line x1="100" y1="38" x2="100" y2="92" stroke="#16a34a" stroke-width="3" stroke-linecap="round"/>
-    <line x1="92" y1="46" x2="108" y2="46" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="93" y1="38" x2="93" y2="52" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="100" y1="38" x2="100" y2="52" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="107" y1="38" x2="107" y2="52" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Outer plate rim -->
+  <circle cx="100" cy="95" r="58" fill="white" stroke="url(#gp)" stroke-width="4"/>
+  <!-- Inner plate -->
+  <circle cx="100" cy="95" r="48" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="2"/>
+  <!-- Plate inner ring -->
+  <circle cx="100" cy="95" r="35" fill="none" stroke="#dcfce7" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <!-- Fork -->
+  <g transform="translate(100,95) rotate(-20) translate(-100,-95)">
+    <rect x="96.5" y="42" width="7" height="58" rx="3" fill="url(#gl)"/>
+    <!-- Fork prongs -->
+    <rect x="93" y="30" width="3.5" height="18" rx="1.5" fill="url(#gl)"/>
+    <rect x="98.25" y="28" width="3.5" height="18" rx="1.5" fill="url(#gl)"/>
+    <rect x="103.5" y="30" width="3.5" height="18" rx="1.5" fill="url(#gl)"/>
   </g>
-  <!-- Spoon (right) -->
-  <g transform="translate(100,100) rotate(25) translate(-100,-100)">
-    <ellipse cx="100" cy="46" rx="9" ry="12" stroke="#16a34a" stroke-width="2.5" fill="#f0fdf4"/>
-    <line x1="100" y1="58" x2="100" y2="92" stroke="#16a34a" stroke-width="3" stroke-linecap="round"/>
+  <!-- Spoon -->
+  <g transform="translate(100,95) rotate(22) translate(-100,-95)">
+    <ellipse cx="100" cy="34" rx="13" ry="16" fill="#f0fdf4" stroke="url(#gl)" stroke-width="3"/>
+    <rect x="96.5" y="48" width="7" height="52" rx="3" fill="url(#gl)"/>
   </g>
-  <!-- Leaf accent -->
-  <path d="M130 70 Q140 60 135 50 Q130 40 120 45 Q115 50 125 58 Q120 65 130 70Z" fill="#22c55e" opacity="0.8"/>
+  <!-- Small leaf accent -->
+  <path d="M150 70 Q158 60 154 52 Q148 44 140 48 Q136 54 144 60 Q140 66 150 70Z" fill="#22c55e" opacity="0.7"/>
   <!-- Text -->
-  <text x="100" y="165" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#15803d">Warung</text>
-  <text x="100" y="185" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#15803d">Nutrisi</text>
+  <text x="100" y="168" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="18" font-weight="800" fill="#15803d" letter-spacing="1">Warung</text>
+  <text x="100" y="190" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="18" font-weight="800" fill="#15803d" letter-spacing="1">Nutrisi</text>
 </svg>
