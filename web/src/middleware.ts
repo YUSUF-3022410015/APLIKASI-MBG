@@ -32,6 +32,8 @@ export default withAuth(
           return NextResponse.redirect(new URL("/dashboard/sekolah", req.url));
         case "PEMERINTAH":
           return NextResponse.redirect(new URL("/dashboard/pemerintah", req.url));
+        case "ORTU":
+          return NextResponse.redirect(new URL("/menu", req.url));
         default:
           return NextResponse.redirect(new URL("/", req.url));
       }

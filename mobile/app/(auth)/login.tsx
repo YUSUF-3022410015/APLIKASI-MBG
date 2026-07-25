@@ -2,8 +2,7 @@ import { useState } from "react";
 import { View, Text, TextInput, Pressable, Alert } from "react-native";
 import { Link, router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const API_URL = process.env.EXPO_PUBLIC_API_URL || "http://localhost:3000";
+import { mobileLogin } from "../../lib/api";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -17,21 +16,13 @@ export default function LoginScreen() {
     }
     setLoading(true);
     try {
-      const res = await fetch(`${API_URL}/api/auth/mobile-login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await res.json();
-
-      if (res.ok && data.user) {
+      const data = await mobileLogin(email, password);
+      if (data.user) {
         await AsyncStorage.setItem("user", JSON.stringify(data.user));
         router.replace("/(tabs)");
-      } else {
-        Alert.alert("Error", data.error || "Email atau password salah");
       }
-    } catch {
-      Alert.alert("Error", "Gagal terhubung ke server");
+    } catch (err: any) {
+      Alert.alert("Error", err.message || "Gagal terhubung ke server");
     }
     setLoading(false);
   }

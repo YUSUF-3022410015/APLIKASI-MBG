@@ -16,25 +16,43 @@ export default async function SppgDashboard() {
     },
   });
 
+  const todayStart = new Date(new Date().setHours(0, 0, 0, 0));
+
   const todayMenus = await prisma.menu.count({
     where: {
       sppgId: sppg?.id,
-      dateServed: { gte: new Date(new Date().setHours(0, 0, 0, 0)) },
+      dateServed: { gte: todayStart },
     },
   });
 
   const todayReviews = await prisma.review.count({
     where: {
       menu: { sppgId: sppg?.id },
-      createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) },
+      createdAt: { gte: todayStart },
     },
   });
+
+  const totalPortionResult = await prisma.distribution.aggregate({
+    where: { menu: { sppgId: sppg?.id } },
+    _sum: { totalPortion: true },
+  });
+
+  const distributedPortionResult = await prisma.distribution.aggregate({
+    where: {
+      menu: { sppgId: sppg?.id },
+      status: { in: ["DITERIMA", "SELESAI"] },
+    },
+    _sum: { totalPortion: true },
+  });
+
+  const totalPortions = totalPortionResult._sum.totalPortion || 0;
+  const distributedPortions = distributedPortionResult._sum.totalPortion || 0;
 
   return (
     <div>
       <h1 className="text-2xl font-bold mb-6">Dashboard SPPG</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
           <p className="text-sm text-gray-500">Total Menu</p>
           <p className="text-3xl font-bold text-green-600">{sppg?._count.menus || 0}</p>
@@ -46,6 +64,18 @@ export default async function SppgDashboard() {
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
           <p className="text-sm text-gray-500">Komentar Baru</p>
           <p className="text-3xl font-bold text-orange-600">{todayReviews}</p>
+        </div>
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+          <p className="text-sm text-gray-500">Total Porsi</p>
+          <p className="text-3xl font-bold text-purple-600">{totalPortions.toLocaleString("id-ID")}</p>
+        </div>
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+          <p className="text-sm text-gray-500">Porsi Terdistribusi</p>
+          <p className="text-3xl font-bold text-indigo-600">{distributedPortions.toLocaleString("id-ID")}</p>
+        </div>
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+          <p className="text-sm text-gray-500">Sekolah Mitra</p>
+          <p className="text-3xl font-bold text-teal-600">{sppg?._count.schools || 0}</p>
         </div>
       </div>
 

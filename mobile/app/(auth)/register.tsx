@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, Text, TextInput, Pressable, Alert } from "react-native";
 import { Link, router } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL || "http://localhost:3000";
 
@@ -12,6 +13,10 @@ export default function RegisterScreen() {
     const { email, password, fullName } = form;
     if (!email || !password || !fullName) {
       Alert.alert("Error", "Semua field wajib diisi");
+      return;
+    }
+    if (password.length < 6) {
+      Alert.alert("Error", "Password minimal 6 karakter");
       return;
     }
     setLoading(true);
@@ -62,6 +67,41 @@ export default function RegisterScreen() {
           onChangeText={(v) => setForm({ ...form, password: v })}
           secureTextEntry
         />
+
+        <View className="flex-row gap-3 mb-4">
+          <Pressable
+            onPress={() => setForm({ ...form, role: "ORTU" })}
+            className={`flex-1 py-3 rounded-lg border-2 ${
+              form.role === "ORTU"
+                ? "border-green-600 bg-green-50"
+                : "border-gray-200"
+            }`}
+          >
+            <Text
+              className={`text-center font-medium ${
+                form.role === "ORTU" ? "text-green-700" : "text-gray-500"
+              }`}
+            >
+              Orang Tua / Murid
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={() => setForm({ ...form, role: "SEKOLAH" })}
+            className={`flex-1 py-3 rounded-lg border-2 ${
+              form.role === "SEKOLAH"
+                ? "border-green-600 bg-green-50"
+                : "border-gray-200"
+            }`}
+          >
+            <Text
+              className={`text-center font-medium ${
+                form.role === "SEKOLAH" ? "text-green-700" : "text-gray-500"
+              }`}
+            >
+              Pihak Sekolah
+            </Text>
+          </Pressable>
+        </View>
 
         <Pressable
           onPress={handleRegister}
