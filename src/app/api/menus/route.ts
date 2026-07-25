@@ -19,7 +19,7 @@ export async function GET() {
         menu.reviews.length > 0
           ? menu.reviews.reduce((sum, r) => sum + r.rating, 0) / menu.reviews.length
           : null;
-      return { ...menu, avgRating };
+      return { ...menu, avgRating, imageUrl: menu.imageUrls[0] || null };
     });
 
     return NextResponse.json(menusWithRating);
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
 
   try {
     const body = await req.json();
-    const { title, description, calories, protein, carbohydrate, fat, ingredients, imageUrl, dateServed, schoolIds } = body;
+    const { title, description, calories, protein, carbohydrate, fat, ingredients, imageUrls, dateServed, schoolIds } = body;
 
     if (!title || !calories || !dateServed) {
       return NextResponse.json({ error: "Judul, kalori, dan tanggal wajib diisi" }, { status: 400 });
@@ -61,7 +61,7 @@ export async function POST(req: Request) {
         carbohydrate: carbohydrate ? parseFloat(carbohydrate) : null,
         fat: fat ? parseFloat(fat) : null,
         ingredients: ingredients || [],
-        imageUrl: imageUrl || null,
+        imageUrls: imageUrls || [],
         dateServed: new Date(dateServed),
         distributions: schoolIds?.length
           ? {
@@ -74,6 +74,26 @@ export async function POST(req: Request) {
           : undefined,
       },
     });
+
+    if (schoolIds?.length) {
+      const schools = await prisma.school.findMany({
+        where: { id: { in: schoolIds } },
+        select: { id: true },
+      });
+      const users = await prisma.user.findMany({
+        where: { schoolId: { in: schools.map((s) => s.id) }, role: "SEKOLAH" },
+        select: { id: true },
+      });
+      if (users.length > 0) {
+        await prisma.notification.createMany({
+          data: users.map((u) => ({
+            userId: u.id,
+            title: "Menu Baru Tersedia",
+            body: `${title} telah ditambahkan untuk sekolah Anda`,
+          })),
+        });
+      }
+    }
 
     return NextResponse.json(menu);
   } catch (error) {

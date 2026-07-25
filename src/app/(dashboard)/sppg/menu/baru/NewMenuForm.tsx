@@ -11,33 +11,34 @@ interface School {
 export default function NewMenuForm({ schools }: { schools: School[] }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
 
   async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
 
     setUploading(true);
-    const formData = new FormData();
-    formData.append("file", file);
+    const urls: string[] = [];
 
-    try {
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-      const data = await res.json();
-      if (data.url) {
-        setImageUrl(data.url);
-      } else {
-        setError("Gagal upload gambar");
-      }
-    } catch {
-      setError("Gagal upload gambar");
+    for (const file of Array.from(files)) {
+      const formData = new FormData();
+      formData.append("file", file);
+      try {
+        const res = await fetch("/api/upload", { method: "POST", body: formData });
+        const data = await res.json();
+        if (data.url) urls.push(data.url);
+      } catch {}
     }
+
+    setImageUrls((prev) => [...prev, ...urls]);
     setUploading(false);
+    if (urls.length === 0) setError("Gagal upload gambar");
+  }
+
+  function removeImage(index: number) {
+    setImageUrls((prev) => prev.filter((_, i) => i !== index));
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -77,7 +78,7 @@ export default function NewMenuForm({ schools }: { schools: School[] }) {
           carbohydrate: carbohydrate ? parseFloat(carbohydrate) : null,
           fat: fat ? parseFloat(fat) : null,
           ingredients,
-          imageUrl: imageUrl || null,
+          imageUrls,
           dateServed,
           schoolIds: targetSchools,
         }),
@@ -99,97 +100,68 @@ export default function NewMenuForm({ schools }: { schools: School[] }) {
 
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Foto Menu</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Foto Menu (bisa pilih banyak)</label>
           <input
             type="file"
             accept="image/*"
+            multiple
             onChange={handleImageUpload}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:bg-green-50 file:text-green-700 file:font-medium"
           />
           {uploading && <p className="text-sm text-gray-500 mt-1">Mengupload...</p>}
-          {imageUrl && (
-            <img src={imageUrl} alt="Preview" className="mt-2 h-40 object-cover rounded-lg" />
+          {imageUrls.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-2">
+              {imageUrls.map((url, i) => (
+                <div key={i} className="relative group">
+                  <img src={url} alt={`Foto ${i + 1}`} className="h-20 w-20 object-cover rounded-lg" />
+                  <button type="button" onClick={() => removeImage(i)} className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                    ×
+                  </button>
+                </div>
+              ))}
+            </div>
           )}
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Nama Menu</label>
-          <input
-            type="text"
-            name="title"
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
-          />
+          <input type="text" name="title" required className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none" />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Deskripsi</label>
-          <textarea
-            name="description"
-            rows={3}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
-          />
+          <textarea name="description" rows={3} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none" />
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Kalori (kkal)</label>
-            <input
-              type="number"
-              name="calories"
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
-            />
+            <input type="number" name="calories" required className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none" />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Tanggal Saji</label>
-            <input
-              type="date"
-              name="dateServed"
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
-            />
+            <input type="date" name="dateServed" required className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none" />
           </div>
         </div>
 
         <div className="grid grid-cols-3 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Protein (g)</label>
-            <input
-              type="number"
-              step="0.1"
-              name="protein"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
-            />
+            <input type="number" step="0.1" name="protein" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none" />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Karbohidrat (g)</label>
-            <input
-              type="number"
-              step="0.1"
-              name="carbohydrate"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
-            />
+            <input type="number" step="0.1" name="carbohydrate" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none" />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Lemak (g)</label>
-            <input
-              type="number"
-              step="0.1"
-              name="fat"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
-            />
+            <input type="number" step="0.1" name="fat" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none" />
           </div>
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Bahan Baku (pisahkan koma)</label>
-          <input
-            type="text"
-            name="ingredients"
-            placeholder="Nasi, Telur, Wortel, Buncis"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
-          />
+          <input type="text" name="ingredients" placeholder="Nasi, Telur, Wortel, Buncis" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none" />
         </div>
 
         {schools.length > 0 && (
@@ -198,12 +170,7 @@ export default function NewMenuForm({ schools }: { schools: School[] }) {
             <div className="space-y-2 max-h-48 overflow-y-auto border border-gray-200 rounded-lg p-3">
               {schools.map((school) => (
                 <label key={school.id} className="flex items-center gap-2 p-1 hover:bg-gray-50 rounded">
-                  <input
-                    type="checkbox"
-                    name="schoolIds"
-                    value={school.id}
-                    className="rounded border-gray-300 text-green-600 focus:ring-green-500"
-                  />
+                  <input type="checkbox" name="schoolIds" value={school.id} className="rounded border-gray-300 text-green-600 focus:ring-green-500" />
                   <span className="text-sm">{school.name}</span>
                 </label>
               ))}
@@ -213,11 +180,7 @@ export default function NewMenuForm({ schools }: { schools: School[] }) {
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
-        <button
-          type="submit"
-          disabled={isPending || uploading}
-          className="w-full py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition disabled:opacity-50"
-        >
+        <button type="submit" disabled={isPending || uploading} className="w-full py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition disabled:opacity-50">
           {isPending ? "Menyimpan..." : "Simpan Menu"}
         </button>
       </form>

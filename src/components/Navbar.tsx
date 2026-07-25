@@ -23,7 +23,9 @@ export default async function Navbar() {
 
           {session ? (
             <div className="flex items-center gap-3">
-              <span className="text-sm text-gray-500">{session.user.name}</span>
+              <Link href="/dashboard/profile" className="text-sm text-gray-500 hover:text-green-600">
+                {session.user.name}
+              </Link>
               <Link
                 href="/dashboard"
                 className="px-4 py-2 bg-green-600 text-white rounded-lg text-sm hover:bg-green-700 transition"

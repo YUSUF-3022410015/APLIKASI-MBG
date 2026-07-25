@@ -1,6 +1,5 @@
 import prisma from "@/lib/db";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import ReviewForm from "./ReviewForm";
 
 export default async function MenuDetail({ params }: { params: { id: string } }) {
@@ -36,18 +35,8 @@ export default async function MenuDetail({ params }: { params: { id: string } })
   return (
     <div className="max-w-3xl mx-auto">
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <div className="h-64 bg-gradient-to-br from-green-100 to-emerald-200 flex items-center justify-center relative">
-          {menu.imageUrl ? (
-            <Image
-              src={menu.imageUrl}
-              alt={menu.title}
-              fill
-              className="object-cover"
-            />
-          ) : (
-            <span className="text-8xl">🍱</span>
-          )}
-        </div>
+        <ImageCarousel images={menu.imageUrls} title={menu.title} />
+
         <div className="p-6">
           <h1 className="text-2xl font-bold mb-2">{menu.title}</h1>
           <p className="text-gray-500 mb-1">oleh {menu.sppg.name}</p>
@@ -143,3 +132,5 @@ export default async function MenuDetail({ params }: { params: { id: string } })
     </div>
   );
 }
+
+import ImageCarousel from "@/components/ImageCarousel";

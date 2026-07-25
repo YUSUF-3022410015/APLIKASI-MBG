@@ -17,6 +17,7 @@ export interface Menu {
   carbohydrate: number | null;
   fat: number | null;
   ingredients: string[];
+  imageUrls: string[];
   imageUrl: string | null;
   dateServed: string;
   sppg: { name: string };

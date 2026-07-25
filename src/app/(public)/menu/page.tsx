@@ -24,14 +24,20 @@ export default async function MenuListPage() {
               ? menu.reviews.reduce((s, r) => s + r.rating, 0) / menu.reviews.length
               : null;
 
+          const imageUrl = menu.imageUrls[0] || null;
+
           return (
             <Link
               key={menu.id}
               href={`/menu/${menu.id}`}
               className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition"
             >
-              <div className="h-48 bg-gradient-to-br from-green-100 to-emerald-200 flex items-center justify-center">
-                <span className="text-6xl">🍱</span>
+              <div className="h-48 bg-gradient-to-br from-green-100 to-emerald-200 flex items-center justify-center relative overflow-hidden">
+                {imageUrl ? (
+                  <img src={imageUrl} alt={menu.title} className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-6xl">🍱</span>
+                )}
               </div>
               <div className="p-4">
                 <h3 className="font-semibold text-lg mb-1">{menu.title}</h3>

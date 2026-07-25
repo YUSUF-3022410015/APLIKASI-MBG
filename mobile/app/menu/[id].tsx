@@ -12,6 +12,7 @@ interface MenuDetail {
   carbohydrate: number | null;
   fat: number | null;
   ingredients: string[];
+  imageUrls: string[];
   imageUrl: string | null;
   sppg: { name: string };
   dateServed: string;
@@ -72,12 +73,14 @@ export default function MenuDetailScreen() {
     );
   }
 
+  const displayImage = menu.imageUrls?.[0] || menu.imageUrl || null;
+
   return (
     <ScrollView className="flex-1 bg-gray-50">
       <Stack.Screen options={{ title: menu.title }} />
       <View className="h-48 bg-green-100 items-center justify-center">
-        {menu.imageUrl ? (
-          <Image source={{ uri: menu.imageUrl }} className="w-full h-full" resizeMode="cover" />
+        {displayImage ? (
+          <Image source={{ uri: displayImage }} className="w-full h-full" resizeMode="cover" />
         ) : (
           <Text className="text-7xl">{"\uD83C\uDF71"}</Text>
         )}

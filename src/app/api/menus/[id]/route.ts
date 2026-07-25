@@ -20,7 +20,7 @@ export async function GET(
       return NextResponse.json({ error: "Menu tidak ditemukan" }, { status: 404 });
     }
 
-    return NextResponse.json(menu);
+    return NextResponse.json({ ...menu, imageUrl: menu.imageUrls[0] || null });
   } catch (error) {
     return NextResponse.json({ error: "Gagal mengambil data menu" }, { status: 500 });
   }
@@ -37,7 +37,7 @@ export async function PUT(
 
   try {
     const body = await req.json();
-    const { title, description, calories, protein, carbohydrate, fat, ingredients, imageUrl, dateServed, schoolIds } = body;
+    const { title, description, calories, protein, carbohydrate, fat, ingredients, imageUrls, dateServed, schoolIds } = body;
 
     const existing = await prisma.menu.findUnique({
       where: { id: params.id },
@@ -67,7 +67,7 @@ export async function PUT(
         carbohydrate: carbohydrate ? parseFloat(carbohydrate) : null,
         fat: fat ? parseFloat(fat) : null,
         ingredients: ingredients || [],
-        imageUrl: imageUrl || null,
+        imageUrls: imageUrls || [],
         dateServed: new Date(dateServed),
       },
     });

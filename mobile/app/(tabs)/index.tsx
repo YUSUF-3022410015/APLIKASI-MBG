@@ -8,6 +8,7 @@ interface Menu {
   id: string;
   title: string;
   calories: number;
+  imageUrls?: string[];
   imageUrl?: string;
   sppg: { name: string };
   avgRating?: number;
@@ -44,8 +45,8 @@ export default function HomeTab() {
           <Link href={`/menu/${item.id}`} asChild>
             <Pressable className="bg-white rounded-xl mb-4 overflow-hidden shadow-sm border border-gray-100">
               <View className="h-36 bg-green-100 items-center justify-center">
-                {item.imageUrl ? (
-                  <Image source={{ uri: item.imageUrl }} className="w-full h-full" resizeMode="cover" />
+                {(item.imageUrls && item.imageUrls[0]) || item.imageUrl ? (
+                  <Image source={{ uri: item.imageUrls?.[0] || item.imageUrl! }} className="w-full h-full" resizeMode="cover" />
                 ) : (
                   <Text className="text-5xl">🍱</Text>
                 )}

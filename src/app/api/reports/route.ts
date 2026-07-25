@@ -14,7 +14,7 @@ export async function POST(req: Request) {
 
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },
-      select: { schoolId: true },
+      select: { schoolId: true, school: { select: { name: true, sppgMitraId: true } } },
     });
 
     if (!user?.schoolId) {
@@ -29,6 +29,22 @@ export async function POST(req: Request) {
         description: description || `${menuTitle} - ${category}`,
       },
     });
+
+    if (user.school?.sppgMitraId) {
+      const sppgAdmin = await prisma.user.findFirst({
+        where: { adminOf: { id: user.school.sppgMitraId } },
+        select: { id: true },
+      });
+      if (sppgAdmin) {
+        await prisma.notification.create({
+          data: {
+            userId: sppgAdmin.id,
+            title: "Laporan Masalah dari Sekolah",
+            body: `${user.school.name} melaporkan: ${category} - ${description || menuTitle}`,
+          },
+        });
+      }
+    }
 
     return NextResponse.json(report);
   } catch (error) {

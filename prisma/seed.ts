@@ -48,7 +48,7 @@ async function main() {
       carbohydrate: 55.0,
       fat: 12.0,
       ingredients: ["Nasi", "Telur", "Wortel", "Buncis", "Minyak Zaitun"],
-      imageUrl: "https://res.cloudinary.com/demo/image/upload/v1/samples/food/nasi-goreng",
+      imageUrls: ["https://res.cloudinary.com/demo/image/upload/v1/samples/food/nasi-goreng"],
       dateServed: new Date(),
     },
   });
@@ -63,7 +63,7 @@ async function main() {
       carbohydrate: 48.0,
       fat: 18.0,
       ingredients: ["Nasi", "Ayam", "Sayur Asem", "Kecap", "Bawang"],
-      imageUrl: "https://res.cloudinary.com/demo/image/upload/v1/samples/food/spaghetti-carbonara",
+      imageUrls: ["https://res.cloudinary.com/demo/image/upload/v1/samples/food/spaghetti-carbonara"],
       dateServed: new Date(),
     },
   });
@@ -78,7 +78,7 @@ async function main() {
       carbohydrate: 42.0,
       fat: 10.0,
       ingredients: ["Beras", "Ayam", "Telur", "Daun Bawang", "Kerupuk"],
-      imageUrl: "https://res.cloudinary.com/demo/image/upload/v1/samples/food/fish-vegetables",
+      imageUrls: ["https://res.cloudinary.com/demo/image/upload/v1/samples/food/fish-vegetables"],
       dateServed: new Date(),
     },
   });
