@@ -1,5 +1,6 @@
 import prisma from "@/lib/db";
 import { notFound } from "next/navigation";
+import ImageCarousel from "@/components/ImageCarousel";
 import ReviewForm from "./ReviewForm";
 
 export default async function MenuDetail({ params }: { params: { id: string } }) {
@@ -132,5 +133,3 @@ export default async function MenuDetail({ params }: { params: { id: string } })
     </div>
   );
 }
-
-import ImageCarousel from "@/components/ImageCarousel";

@@ -1,144 +1,132 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 235" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
   <defs>
-    <!-- Realistic plate gradients -->
-    <radialGradient id="plateShadow" cx="50%" cy="55%" r="50%">
-      <stop offset="0%" stop-color="rgba(0,0,0,0.12)"/>
-      <stop offset="70%" stop-color="rgba(0,0,0,0.04)"/>
-      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
-    </radialGradient>
-    <radialGradient id="plateRim" cx="45%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="40%" stop-color="#f8fafc"/>
-      <stop offset="80%" stop-color="#e2e8f0"/>
-      <stop offset="100%" stop-color="#cbd5e1"/>
-    </radialGradient>
-    <radialGradient id="plateBase" cx="45%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="60%" stop-color="#f1f5f9"/>
-      <stop offset="100%" stop-color="#cbd5e1"/>
-    </radialGradient>
-    <radialGradient id="plateInnerGlow" cx="40%" cy="30%" r="60%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
-      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.1"/>
-      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-    </radialGradient>
-    <!-- Realistic silverware gradients -->
-    <linearGradient id="silver" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#94a3b8"/>
-      <stop offset="20%" stop-color="#cbd5e1"/>
-      <stop offset="40%" stop-color="#f8fafc"/>
-      <stop offset="55%" stop-color="#ffffff"/>
-      <stop offset="70%" stop-color="#cbd5e1"/>
-      <stop offset="85%" stop-color="#94a3b8"/>
-      <stop offset="100%" stop-color="#64748b"/>
+    <linearGradient id="darkRim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2c1810"/>
+      <stop offset="50%" stop-color="#1a0f08"/>
+      <stop offset="100%" stop-color="#3d2317"/>
     </linearGradient>
-    <linearGradient id="silverVert" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f8fafc"/>
-      <stop offset="30%" stop-color="#ffffff"/>
-      <stop offset="60%" stop-color="#cbd5e1"/>
-      <stop offset="100%" stop-color="#94a3b8"/>
+    <linearGradient id="goldRim" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d4a843"/>
+      <stop offset="50%" stop-color="#f0d68a"/>
+      <stop offset="100%" stop-color="#b8922e"/>
+    </linearGradient>
+    <radialGradient id="plateWhite" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="70%" stop-color="#f5f5f0"/>
+      <stop offset="100%" stop-color="#e8e4dc"/>
+    </radialGradient>
+    <linearGradient id="silver" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8a8a8a"/>
+      <stop offset="30%" stop-color="#d4d4d4"/>
+      <stop offset="50%" stop-color="#f0f0f0"/>
+      <stop offset="70%" stop-color="#c0c0c0"/>
+      <stop offset="100%" stop-color="#7a7a7a"/>
     </linearGradient>
     <linearGradient id="silverHandle" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#e2e8f0"/>
-      <stop offset="20%" stop-color="#ffffff"/>
-      <stop offset="50%" stop-color="#cbd5e1"/>
-      <stop offset="80%" stop-color="#94a3b8"/>
-      <stop offset="100%" stop-color="#64748b"/>
+      <stop offset="0%" stop-color="#c0c0c0"/>
+      <stop offset="30%" stop-color="#e8e8e8"/>
+      <stop offset="60%" stop-color="#a0a0a0"/>
+      <stop offset="100%" stop-color="#808080"/>
     </linearGradient>
-    <radialGradient id="spoonBowl" cx="40%" cy="30%" r="65%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="40%" stop-color="#f1f5f9"/>
-      <stop offset="70%" stop-color="#cbd5e1"/>
-      <stop offset="100%" stop-color="#94a3b8"/>
+    <radialGradient id="spoonBowl" cx="40%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#f0f0f0"/>
+      <stop offset="40%" stop-color="#d8d8d8"/>
+      <stop offset="100%" stop-color="#909090"/>
     </radialGradient>
-    <!-- Green brand accent -->
-    <linearGradient id="brandGreen" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#22c55e"/>
-      <stop offset="100%" stop-color="#15803d"/>
-    </linearGradient>
   </defs>
 
-  <!-- ===== SHADOW ===== -->
-  <ellipse cx="100" cy="145" rx="60" ry="10" fill="url(#plateShadow)"/>
+  <!-- Outer dark rim -->
+  <circle cx="100" cy="100" r="96" fill="url(#darkRim)"/>
+  <!-- Gold accent ring -->
+  <circle cx="100" cy="100" r="91" fill="none" stroke="url(#goldRim)" stroke-width="2"/>
+  <!-- Inner dark rim -->
+  <circle cx="100" cy="100" r="88" fill="url(#darkRim)"/>
+  <!-- Gold inner ring -->
+  <circle cx="100" cy="100" r="84" fill="none" stroke="url(#goldRim)" stroke-width="1.5"/>
 
-  <!-- ===== PLATE OUTER RIM ===== -->
-  <circle cx="100" cy="100" r="60" fill="url(#plateRim)"/>
-  <!-- Rim outer edge highlight -->
-  <circle cx="100" cy="100" r="59.5" fill="none" stroke="white" stroke-width="0.8" opacity="0.6"/>
-  <!-- Rim inner edge shadow -->
-  <circle cx="100" cy="100" r="52" fill="none" stroke="#94a3b8" stroke-width="0.5" opacity="0.4"/>
+  <!-- Plate white surface -->
+  <circle cx="100" cy="100" r="82" fill="url(#plateWhite)"/>
+  <!-- Plate inner shadow -->
+  <circle cx="100" cy="100" r="78" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="2"/>
 
-  <!-- ===== PLATE INNER BASE ===== -->
-  <circle cx="100" cy="100" r="51" fill="url(#plateBase)"/>
-  <!-- Inner shadow ring -->
-  <circle cx="100" cy="100" r="48" fill="none" stroke="rgba(0,0,0,0.05)" stroke-width="6"/>
-  <!-- Decorative ring -->
-  <circle cx="100" cy="100" r="38" fill="none" stroke="#cbd5e1" stroke-width="0.5" stroke-dasharray="4 3"/>
-  <!-- Center bottom shadow -->
-  <circle cx="100" cy="106" r="25" fill="rgba(0,0,0,0.03)"/>
-  <!-- Highlight reflection -->
-  <ellipse cx="88" cy="82" rx="22" ry="12" fill="white" opacity="0.35" transform="rotate(-15,88,82)"/>
+  <!-- Brown rice pile (left) -->
+  <ellipse cx="62" cy="88" rx="22" ry="16" fill="#8B4513"/>
+  <ellipse cx="60" cy="85" rx="20" ry="14" fill="#A0522D"/>
+  <ellipse cx="58" cy="82" rx="18" ry="12" fill="#CD853F"/>
+  <!-- Rice grain details -->
+  <line x1="50" y1="80" x2="54" y2="84" stroke="#6B3410" stroke-width="1" opacity="0.5"/>
+  <line x1="55" y1="78" x2="59" y2="82" stroke="#6B3410" stroke-width="1" opacity="0.5"/>
+  <line x1="60" y1="77" x2="64" y2="81" stroke="#6B3410" stroke-width="1" opacity="0.5"/>
+  <line x1="65" y1="78" x2="68" y2="82" stroke="#6B3410" stroke-width="1" opacity="0.5"/>
+  <line x1="52" y1="84" x2="56" y2="88" stroke="#6B3410" stroke-width="1" opacity="0.5"/>
+  <line x1="57" y1="83" x2="61" y2="87" stroke="#6B3410" stroke-width="1" opacity="0.5"/>
+  <line x1="62" y1="83" x2="66" y2="87" stroke="#6B3410" stroke-width="1" opacity="0.5"/>
 
-  <!-- ===== FORK ===== -->
-  <g transform="translate(100,100) rotate(-18) translate(-100,-100)">
-    <!-- Fork handle shadow -->
-    <rect x="97" y="44" width="8" height="54" rx="3" fill="rgba(0,0,0,0.08)"/>
-    <!-- Fork handle -->
-    <rect x="96" y="43" width="8" height="55" rx="3" fill="url(#silverHandle)"/>
-    <!-- Handle highlight line -->
-    <line x1="98.5" y1="48" x2="98.5" y2="88" stroke="white" stroke-width="0.6" opacity="0.5"/>
-    <line x1="101.5" y1="48" x2="101.5" y2="88" stroke="#64748b" stroke-width="0.3" opacity="0.3"/>
-    <!-- Fork neck -->
-    <rect x="96" y="38" width="8" height="8" rx="2" fill="url(#silverVert)"/>
-    <!-- Fork neck highlight -->
-    <ellipse cx="100" cy="40" rx="3" ry="2" fill="white" opacity="0.3"/>
-    <!-- Fork prongs -->
-    <rect x="91.5" y="24" width="4" height="18" rx="1.5" fill="url(#silver)"/>
-    <rect x="96.5" y="22" width="4" height="18" rx="1.5" fill="url(#silverLight)"/>
-    <rect x="101.5" y="24" width="4" height="18" rx="1.5" fill="url(#silver)"/>
-    <!-- Prong highlights -->
-    <line x1="93" y1="27" x2="93" y2="38" stroke="white" stroke-width="0.4" opacity="0.3"/>
-    <line x1="103" y1="27" x2="103" y2="38" stroke="white" stroke-width="0.4" opacity="0.3"/>
+  <!-- Spinach leaves (right) -->
+  <path d="M118 70 Q130 60 140 68 Q148 76 138 86 Q128 92 118 82 Q112 74 118 70Z" fill="#2d8a4e"/>
+  <path d="M120 72 Q128 64 136 70 Q142 76 134 84 Q126 88 120 80 Q116 76 120 72Z" fill="#3a9d5e"/>
+  <path d="M122 74 Q128 68 134 73 Q138 78 132 83 Q126 86 122 80 Q120 77 122 74Z" fill="#4ab86e" opacity="0.8"/>
+  <!-- Leaf veins -->
+  <path d="M125 70 Q130 76 128 84" stroke="#1d6b3a" stroke-width="0.8" fill="none" opacity="0.4"/>
+  <path d="M130 72 Q133 78 130 84" stroke="#1d6b3a" stroke-width="0.6" fill="none" opacity="0.3"/>
+
+  <!-- Cherry tomato 1 -->
+  <circle cx="90" cy="100" r="8" fill="#cc3333"/>
+  <circle cx="88" cy="97" r="6" fill="#e04040"/>
+  <ellipse cx="86" cy="95" rx="3" ry="2" fill="#ff6666" opacity="0.6"/>
+  <path d="M88 92 Q90 90 92 92" stroke="#2d8a4e" stroke-width="1.5" fill="none"/>
+
+  <!-- Cherry tomato 2 -->
+  <circle cx="78" cy="108" r="7" fill="#cc3333"/>
+  <circle cx="76" cy="106" r="5" fill="#e04040"/>
+  <ellipse cx="75" cy="104" rx="2.5" ry="1.8" fill="#ff6666" opacity="0.6"/>
+
+  <!-- Chickpeas -->
+  <circle cx="95" cy="112" r="5" fill="#d4a843"/>
+  <circle cx="94" cy="111" r="4" fill="#e0b84d"/>
+  <circle cx="88" cy="115" r="4.5" fill="#c99a3a"/>
+  <circle cx="87" cy="114" r="3.5" fill="#d4a843"/>
+  <circle cx="101" cy="114" r="4" fill="#c99a3a"/>
+  <circle cx="100" cy="113" r="3" fill="#d4a843"/>
+
+  <!-- Pumpkin seeds -->
+  <ellipse cx="96" cy="72" rx="4" ry="2.5" fill="#5a7a3a" transform="rotate(-15,96,72)"/>
+  <ellipse cx="102" cy="70" rx="3.5" ry="2" fill="#4a6a2e" transform="rotate(10,102,70)"/>
+  <ellipse cx="108" cy="73" rx="3" ry="2" fill="#5a7a3a" transform="rotate(-5,108,73)"/>
+
+  <!-- FORK (left, rotated slightly) -->
+  <g transform="translate(100,100) rotate(-25) translate(-100,-100)">
+    <!-- Handle -->
+    <rect x="97" y="55" width="6" height="45" rx="3" fill="url(#silverHandle)"/>
+    <line x1="99" y1="58" x2="99" y2="95" stroke="white" stroke-width="0.5" opacity="0.4"/>
+    <!-- Neck -->
+    <rect x="97" y="48" width="6" height="10" rx="2" fill="url(#silver)"/>
+    <!-- Prongs -->
+    <rect x="92" y="30" width="3" height="22" rx="1.5" fill="url(#silver)"/>
+    <rect x="96.5" y="28" width="3" height="22" rx="1.5" fill="#e0e0e0"/>
+    <rect x="101" y="30" width="3" height="22" rx="1.5" fill="url(#silver)"/>
+    <rect x="105.5" y="30" width="3" height="22" rx="1.5" fill="url(#silver)"/>
     <!-- Prong tips -->
-    <ellipse cx="93.5" cy="24.5" rx="1.8" ry="1" fill="#cbd5e1"/>
-    <ellipse cx="98.5" cy="22.5" rx="1.8" ry="1" fill="#e2e8f0"/>
-    <ellipse cx="103.5" cy="24.5" rx="1.8" ry="1" fill="#cbd5e1"/>
+    <ellipse cx="93.5" cy="31" rx="1.5" ry="1" fill="#c0c0c0"/>
+    <ellipse cx="98" cy="29" rx="1.5" ry="1" fill="#d8d8d8"/>
+    <ellipse cx="102.5" cy="31" rx="1.5" ry="1" fill="#c0c0c0"/>
+    <ellipse cx="107" cy="31" rx="1.5" ry="1" fill="#c0c0c0"/>
   </g>
 
-  <!-- ===== SPOON ===== -->
-  <g transform="translate(100,100) rotate(20) translate(-100,-100)">
-    <!-- Spoon handle shadow -->
-    <rect x="97" y="50" width="8" height="52" rx="3" fill="rgba(0,0,0,0.08)"/>
-    <!-- Spoon handle -->
-    <rect x="96" y="49" width="8" height="52" rx="3" fill="url(#silverHandle)"/>
-    <!-- Handle highlights -->
-    <line x1="98.5" y1="54" x2="98.5" y2="92" stroke="white" stroke-width="0.6" opacity="0.5"/>
-    <line x1="101.5" y1="54" x2="101.5" y2="92" stroke="#64748b" stroke-width="0.3" opacity="0.3"/>
-    <!-- Spoon neck -->
-    <rect x="96" y="44" width="8" height="8" rx="2" fill="url(#silverVert)"/>
-    <!-- Spoon bowl outer -->
-    <ellipse cx="100" cy="31" rx="13" ry="16" fill="url(#spoonBowl)"/>
-    <!-- Rim highlight -->
-    <ellipse cx="100" cy="31" rx="12.5" ry="15.5" fill="none" stroke="white" stroke-width="0.4" opacity="0.3"/>
-    <!-- Bowl inner reflection -->
-    <ellipse cx="96" cy="26" rx="8" ry="9" fill="white" opacity="0.5"/>
-    <ellipse cx="94" cy="23" rx="4" ry="3" fill="white" opacity="0.3"/>
-    <!-- Bowl bottom shadow -->
-    <ellipse cx="102" cy="40" rx="6" ry="3" fill="rgba(0,0,0,0.06)"/>
+  <!-- SPOON (right, rotated slightly) -->
+  <g transform="translate(100,100) rotate(22) translate(-100,-100)">
+    <!-- Handle -->
+    <rect x="97" y="52" width="6" height="48" rx="3" fill="url(#silverHandle)"/>
+    <line x1="99" y1="55" x2="99" y2="95" stroke="white" stroke-width="0.5" opacity="0.4"/>
+    <!-- Neck -->
+    <rect x="97" y="44" width="6" height="10" rx="2" fill="url(#silver)"/>
+    <!-- Bowl -->
+    <ellipse cx="100" cy="30" rx="12" ry="15" fill="url(#spoonBowl)"/>
+    <ellipse cx="96" cy="25" rx="7" ry="8" fill="white" opacity="0.5"/>
+    <ellipse cx="94" cy="22" rx="3.5" ry="3" fill="white" opacity="0.3"/>
   </g>
 
-  <!-- ===== GREEN LEAF ACCENT ===== -->
-  <g transform="translate(150, 62) scale(1)">
-    <path d="M0 0 Q14 -14 12 -26 Q8 -38 -5 -34 Q-12 -28 -3 -18 Q-10 -8 0 0Z" fill="url(#brandGreen)"/>
-    <path d="M-1-4 Q4-16 2-24" stroke="#14532d" stroke-width="0.6" fill="none" opacity="0.3"/>
-    <!-- Leaf highlight -->
-    <path d="M-2-8 Q1-14 0-20" stroke="white" stroke-width="0.5" fill="none" opacity="0.15"/>
-  </g>
-  <circle cx="158" cy="78" r="1.5" fill="#22c55e" opacity="0.4"/>
-  <circle cx="163" cy="72" r="1" fill="#22c55e" opacity="0.25"/>
-
-  <!-- ===== BRAND TEXT ===== -->
-  <text x="100" y="180" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" font-size="21" font-weight="800" fill="#15803d" letter-spacing="1.5">Warung</text>
-  <text x="100" y="205" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" font-size="21" font-weight="800" fill="#15803d" letter-spacing="1.5">Nutrisi</text>
-  <text x="100" y="225" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" font-weight="600" fill="#94a3b8" letter-spacing="4">MAKAN BERGIZI GRATIS</text>
+  <!-- Text -->
+  <text x="100" y="152" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="22" font-weight="700" fill="#1a0f08" letter-spacing="2">WARUNG</text>
+  <text x="100" y="176" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="22" font-weight="700" fill="#1a0f08" letter-spacing="2">NUTRISI</text>
 </svg>
