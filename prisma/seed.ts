@@ -3,11 +3,18 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
+  const existing = await prisma.sppgUnit.findFirst();
+  if (existing) {
+    console.log("Seed data already exists, skipping...");
+    return;
+  }
+
   const sppg = await prisma.sppgUnit.create({
     data: {
       name: "SPPG Kecamatan Cimahi",
       address: "Jl. Cimahi No. 1",
       phone: "022-12345678",
+      isVerified: true,
     },
   });
 
@@ -46,22 +53,43 @@ async function main() {
     },
   });
 
-  await prisma.distribution.create({
+  const menu2 = await prisma.menu.create({
     data: {
-      menuId: menu.id,
-      schoolId: sekolah.id,
-      totalPortion: 450,
-      status: "DISIAPKAN",
+      sppgId: sppg.id,
+      title: "Sayur Asem + Ayam Bakar",
+      description: "Sayur asem segar dengan ayam bakar bumbu kecap",
+      calories: 520,
+      protein: 22.0,
+      carbohydrate: 48.0,
+      fat: 18.0,
+      ingredients: ["Nasi", "Ayam", "Sayur Asem", "Kecap", "Bawang"],
+      imageUrl: "https://res.cloudinary.com/demo/image/upload/v1/samples/food/spaghetti-carbonara",
+      dateServed: new Date(),
     },
   });
 
-  await prisma.distribution.create({
+  const menu3 = await prisma.menu.create({
     data: {
-      menuId: menu.id,
-      schoolId: sekolah2.id,
-      totalPortion: 600,
-      status: "DISIAPKAN",
+      sppgId: sppg.id,
+      title: "Bubur Ayam + Telur Rebus",
+      description: "Bubur ayam hangat dengan topping telur rebus dan kerupuk",
+      calories: 380,
+      protein: 18.0,
+      carbohydrate: 42.0,
+      fat: 10.0,
+      ingredients: ["Beras", "Ayam", "Telur", "Daun Bawang", "Kerupuk"],
+      imageUrl: "https://res.cloudinary.com/demo/image/upload/v1/samples/food/fish-vegetables",
+      dateServed: new Date(),
     },
+  });
+
+  await prisma.distribution.createMany({
+    data: [
+      { menuId: menu.id, schoolId: sekolah.id, totalPortion: 450, status: "DISIAPKAN" },
+      { menuId: menu.id, schoolId: sekolah2.id, totalPortion: 600, status: "DISIAPKAN" },
+      { menuId: menu2.id, schoolId: sekolah.id, totalPortion: 450, status: "DIKIRIM" },
+      { menuId: menu3.id, schoolId: sekolah2.id, totalPortion: 600, status: "DITERIMA", confirmedBy: null, confirmationTime: new Date() },
+    ],
   });
 
   console.log("Seed data created successfully");
@@ -70,7 +98,6 @@ async function main() {
 main()
   .catch((e) => {
     console.error(e);
-    process.exit(1);
   })
   .finally(async () => {
     await prisma.$disconnect();
