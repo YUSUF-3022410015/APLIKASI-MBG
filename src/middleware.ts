@@ -16,11 +16,11 @@ export default withAuth(
       return NextResponse.redirect(new URL("/dashboard", req.url));
     }
 
-    if (path.startsWith("/dashboard/sekolah") && role !== "SEKOLAH") {
+    if (path === "/dashboard/sekolah" && role !== "SEKOLAH") {
       return NextResponse.redirect(new URL("/dashboard", req.url));
     }
 
-    if (path.startsWith("/dashboard/pemerintah") && role !== "PEMERINTAH") {
+    if (path === "/dashboard/pemerintah" && role !== "PEMERINTAH") {
       return NextResponse.redirect(new URL("/dashboard", req.url));
     }
 
