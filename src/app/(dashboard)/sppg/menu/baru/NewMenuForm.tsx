@@ -12,7 +12,7 @@ interface MenuFormData {
 
 export default function NewMenuForm() {
   const { data: session } = useSession();
-  const [formData, setFormData] = useState<MenuFormData({
+  const [formData, setFormData] = useState<MenuFormData>({
     title: "",
     description: "",
     calories: "",
