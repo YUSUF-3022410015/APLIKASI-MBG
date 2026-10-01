@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/db";
 import ProfileForm from "./ProfileForm";
 import PasswordForm from "./PasswordForm";
+import { requireAuth } from "@/lib/server-utils";
 
 export default async function ProfilePage() {
   const session = await getServerSession(authOptions);

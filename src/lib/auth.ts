@@ -1,11 +1,12 @@
-import { NextAuthOptions } from "next-auth";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from "bcryptjs";
-import prisma from "./db";
+import { PrismaClient } from "@prisma/client";
 
-export const authOptions: NextAuthOptions = {
+const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
+
+const prisma = globalForPrisma.prisma ?? new PrismaClient();
+
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+
+export default prisma;
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
   pages: {
