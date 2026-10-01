@@ -10,7 +10,7 @@ interface MenuFormData {
   targetSchools: string[];
 }
 
-export default function NewMenuForm() {
+export default function NewMenuForm({ schools }: { schools: { id: string; name: string }[] }) {
   const { data: session } = useSession();
   const [formData, setFormData] = useState<MenuFormData>({
     title: "",
