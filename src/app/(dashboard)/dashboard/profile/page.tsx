@@ -1,19 +1,22 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { authOptions } from "@/lib/auth";
-import prisma from "@/lib/db";
 import ProfileForm from "./ProfileForm";
 import PasswordForm from "./PasswordForm";
 import { requireAuth } from "@/lib/server-utils";
+import { getUserFromApi } from "./actions";
 
 export default async function ProfilePage() {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession();
   if (!session) redirect("/login");
 
-  const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    select: { fullName: true, email: true, phone: true, address: true, avatarUrl: true, passwordHash: true },
-  });
+  // Use API to get user data instead of direct db access
+  let user = null;
+  try {
+    user = await getUserFromApi(session.user.id);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    redirect("/login");
+  }
 
   if (!user) redirect("/login");
 
